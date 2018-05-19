@@ -14,9 +14,7 @@ class NgoHeaderView(context: Context?, var ngo: Ngo, headerClickable: Boolean = 
 
     init {
         View.inflate(getContext(), R.layout.view_ngo_header, this)
-        name.text = ngo.name
-        funds.setValue(ngo.donatedFunds)
-        children.text = "$ raised for " + ngo.children.size + " children"
+        invalidateNgo(ngo)
 
         if (headerClickable) {
             setOnClickListener(OnClickListener { NgosPreviewActivity.show(getContext(), ngo)  })
@@ -30,5 +28,22 @@ class NgoHeaderView(context: Context?, var ngo: Ngo, headerClickable: Boolean = 
         ngo = newNgo
         funds.setValue(newNgo.donatedFunds)
         children.text = "$ raised for " + newNgo.children.size + " children"
+
+        var fullyDonated = true
+
+        for (child in newNgo.children)  {
+            if (child.funds < child.neededFunds) {
+                fullyDonated = false
+                break
+            }
+        }
+
+        if (fullyDonated) {
+            funds_active.visibility = View.VISIBLE
+            funds_notactive.visibility = View.GONE
+        } else {
+            funds_active.visibility = View.GONE
+            funds_notactive.visibility = View.VISIBLE
+        }
     }
 }

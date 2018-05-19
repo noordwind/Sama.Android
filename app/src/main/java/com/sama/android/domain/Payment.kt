@@ -2,8 +2,7 @@ package com.sama.android.domain
 
 import java.io.Serializable
 
-data class NgoDonation(
+data class Payment(
         val value: Float,
-        val username: String,
-        val ngoName: String
+        val createdAt: String
 ) : Serializable

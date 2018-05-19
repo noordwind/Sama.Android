@@ -1,6 +1,7 @@
 package com.sama.android.network
 
 import com.sama.android.domain.Ngo
+import com.sama.android.domain.Profile
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -30,6 +31,10 @@ interface Api {
     @Headers(ApiHeader.ACCEPT_HEADER, ApiHeader.CONTENT_TYPE_HEADER)
     @GET("ngos/{id}")
     fun ngo(@Path("id") id: String): Observable<Ngo>
+
+    @Headers(ApiHeader.ACCEPT_HEADER, ApiHeader.CONTENT_TYPE_HEADER)
+    @GET("me")
+    fun profile(): Observable<Profile>
 
     @Headers(ApiHeader.ACCEPT_HEADER, ApiHeader.CONTENT_TYPE_HEADER)
     @POST("ngos/{ngoId}/donate")

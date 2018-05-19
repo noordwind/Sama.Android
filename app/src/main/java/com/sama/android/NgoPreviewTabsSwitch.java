@@ -57,6 +57,10 @@ public class NgoPreviewTabsSwitch
         mListener = listener;
     }
 
+    public void setChildrenTabName(String name) {
+        childrenTab.setText(name);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

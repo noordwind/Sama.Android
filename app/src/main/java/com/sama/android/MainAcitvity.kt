@@ -140,12 +140,12 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     override fun onLocationChanged(location: Location?) {
-        mMap?.let {
-            location?.let {
-                mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
-                mMap?.animateCamera(CameraUpdateFactory.zoomTo(10.0f))
-            }
-        }
+//        mMap?.let {
+//            location?.let {
+//                mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
+//                mMap?.animateCamera(CameraUpdateFactory.zoomTo(10.0f))
+//            }
+//        }
     }
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {

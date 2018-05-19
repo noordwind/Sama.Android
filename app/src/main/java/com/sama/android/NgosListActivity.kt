@@ -42,6 +42,10 @@ class NgosListActivity : AppCompatActivity() {
         var animation = AnimationUtils.loadLayoutAnimation(baseContext, R.anim.layout_falldown_animation);
         root.setLayoutAnimation(animation);
 
+        supportActionBar?.let {
+            it.setHomeButtonEnabled(true)
+        }
+
         disposable = NetworkModule().api(this)
                 .ngos()
                 .subscribeOn(Schedulers.io())

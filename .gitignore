@@ -1,9 +1,44 @@
 *.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+
+#temp patch files
+*.orig
+*.rej
+
+#built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
 .DS_Store
-/build
-/captures
-.externalNativeBuild
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+.idea
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.gradle
+build/
+captures/
+
+#Crachlytics
+crashlytics-build.properties
+com_crashlytics_export_strings.xml
+/swagger/

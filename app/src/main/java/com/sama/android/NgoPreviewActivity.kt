@@ -45,6 +45,10 @@ class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
         var animation = AnimationUtils.loadLayoutAnimation(baseContext, R.anim.layout_falldown_animation);
         root.setLayoutAnimation(animation);
 
+        supportActionBar?.let {
+            it.setHomeButtonEnabled(true)
+        }
+
         fetchNgo()
     }
 

@@ -17,13 +17,22 @@
             android:layout_height="220dp"
             android:scaleType="fitXY"/>
 
-        <ImageView
-            android:layout_gravity="top|right"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/funds_active"
             android:padding="8dp"
-            android:id="@+id/status"
-            app:srcCompat="@drawable/ic_favorite_active_filled"
             android:layout_width="48dp"
-            android:layout_height="48dp"/>
+            android:visibility="gone"
+            android:layout_height="48dp"
+            android:layout_gravity="top|right"
+            app:srcCompat="@drawable/ic_favorite_active_filled" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/funds_notactive"
+            android:padding="8dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|right"
+            app:srcCompat="@drawable/ic_favorite_inactive" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
