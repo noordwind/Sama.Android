@@ -3,18 +3,24 @@ package com.sama.android
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.location.LocationListener
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
+import android.widget.Toast
 import com.sama.android.domain.Ngo
+import com.sama.android.network.NetworkModule
 import com.sama.android.views.NgoHeaderView
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.view_ngo_preview.*
 import java.io.Serializable
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class NgosListActivity : AppCompatActivity() {
 
@@ -27,6 +33,8 @@ class NgosListActivity : AppCompatActivity() {
         }
     }
 
+    var disposable: Disposable? = null
+    var headerViews: LinkedList<NgoHeaderView> = LinkedList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,24 +42,59 @@ class NgosListActivity : AppCompatActivity() {
         var animation = AnimationUtils.loadLayoutAnimation(baseContext, R.anim.layout_falldown_animation);
         root.setLayoutAnimation(animation);
 
-        var ngosList = intent.getSerializableExtra("NGO") as NgosList
-        var ngos = ngosList.ngos
+        disposable = NetworkModule().api(this)
+                .ngos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(Consumer {
+                    var number = 1
+                    for (ngo in it) {
+                        var headerView = NgoHeaderView(this, ngo, headerClickable = true)
+                        headerView.visibility = View.GONE
+                        headerViews.add(headerView)
+                        root.addView(headerView, root.childCount)
 
-        var number = 1
-        for (ngo in ngos) {
-            var headerView = NgoHeaderView(this, ngo)
-            headerView.visibility = View.GONE
-            root.addView(headerView, root.childCount)
+                        Handler().postDelayed(Runnable {
+                            headerView.visibility = View.VISIBLE
+                        }, (number++ * 50).toLong())
+                    }
+                }, Consumer {
+                    Toast.makeText(baseContext, "Could not fetch ngos", Toast.LENGTH_SHORT).show()
+                })
+    }
 
-            Handler().postDelayed(Runnable {
-                headerView.visibility = View.VISIBLE
-            }, (number++ * 50).toLong())
-        }
+    override fun onStart() {
+        super.onStart()
+
+        disposable = NetworkModule().api(this)
+                .ngos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(Consumer {
+                    for (ngo in it) {
+                        for (headerView in headerViews) {
+                            if (headerView.ngo.id.equals(ngo.id)) {
+                                headerView.invalidateNgo(ngo)
+                            }
+                        }
+                    }
+                }, Consumer {
+                    Toast.makeText(baseContext, "Could not fetch ngos", Toast.LENGTH_SHORT).show()
+                })
     }
 
     override fun onBackPressed() {
         SamaAnimUtils.overrideExitTransitionWithHorizontalSlide(this)
         super.onBackPressed()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        disposable?.let {
+            if (!it.isDisposed) {
+                it.dispose()
+            }
+        }
     }
 }
 

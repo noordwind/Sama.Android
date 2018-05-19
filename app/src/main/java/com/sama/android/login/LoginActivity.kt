@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.sama.android.MainAcitvity
 import com.sama.android.R
+import com.sama.android.Session
 import com.sama.android.TheApp
 import com.sama.android.network.Api
 import com.sama.android.network.AuthRequest
@@ -31,15 +32,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private val api = NetworkModule().api()
+    private lateinit var api : Api
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (TheApp.sessionToken != null) {
+        if (Session(this).isLoggedIn) {
             MainAcitvity.login(this)
         }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login);
+
+        api = NetworkModule().api(baseContext)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             var w = getWindow(); // in Activity's onCreate() for instance
@@ -59,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(Consumer {
-                    TheApp.sessionToken = it.accessToken
+                    Session(baseContext).setSessionToken(it.accessToken)
                     onLoggedIn()
                 }, Consumer {
                     onError()
@@ -84,7 +87,6 @@ class LoginActivity : AppCompatActivity() {
 
     fun onLoggedIn() {
         progressView.visibility = View.GONE
-        Toast.makeText(baseContext, "Logged in", Toast.LENGTH_SHORT).show()
         MainAcitvity.login(baseContext)
         finish()
     }
@@ -96,7 +98,6 @@ class LoginActivity : AppCompatActivity() {
 
     fun onSignUp() {
         progressView.visibility = View.GONE
-        Toast.makeText(baseContext, "You are now registered", Toast.LENGTH_SHORT).show()
     }
 }
 

@@ -20,4 +20,12 @@ class NgoChildView(context: Context?, val child: NgoChild) : LinearLayout(contex
         Picasso.get().load(url).into(profileImage)
 
     }
+
+    fun setFunds(newFunds: Float) {
+        funds.setValue(newFunds)
+    }
+
+    fun setNeededFunds(newNeededFunds: Float) {
+        neededFunds.text = "/" + String.format("%.0f", newNeededFunds)+ "$"
+    }
 }

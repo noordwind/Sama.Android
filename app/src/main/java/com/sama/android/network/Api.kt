@@ -3,10 +3,7 @@ package com.sama.android.network
 import com.sama.android.domain.Ngo
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface ApiHeader {
@@ -29,7 +26,17 @@ interface Api {
     @Headers(ApiHeader.ACCEPT_HEADER, ApiHeader.CONTENT_TYPE_HEADER)
     @GET("ngos")
     fun ngos(): Observable<List<Ngo>>
+
+    @Headers(ApiHeader.ACCEPT_HEADER, ApiHeader.CONTENT_TYPE_HEADER)
+    @GET("ngos/{id}")
+    fun ngo(@Path("id") id: String): Observable<Ngo>
+
+    @Headers(ApiHeader.ACCEPT_HEADER, ApiHeader.CONTENT_TYPE_HEADER)
+    @POST("ngos/{ngoId}/donate")
+    fun donate(@Path("ngoId") ngoId: String, @Body donateRequest: DonateRequest): Observable<ResponseBody>
 }
+
+class DonateRequest(val funds: Int)
 
 class AuthRequest(val email: String, val password: String)
 

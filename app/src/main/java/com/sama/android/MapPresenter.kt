@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 class MapPresenter(val view: MainAcitvity) {
 
-    val api: Api = NetworkModule().api()
+    val api: Api = NetworkModule().api(view)
     val ngos = LinkedList<Ngo>()
 
     fun fetchNgos() {

@@ -19,6 +19,12 @@ class DonateDialog : DialogFragment() {
         fun newInstance(): DonateDialog = DonateDialog()
     }
 
+    interface OnAccept {
+        fun onAccept(donation : Int)
+    }
+
+    var onAccept: OnAccept? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog)
@@ -41,6 +47,13 @@ class DonateDialog : DialogFragment() {
         slider.position = 0.3f
         slider.startText ="$min"
         slider.endText = "$max"
+
+        rootView.findViewById<View>(R.id.donate).setOnClickListener({
+            onAccept?.let {
+                it.onAccept(donationLabel.text.toString().toInt())
+            }
+            dismiss()
+        })
 
         return rootView
     }

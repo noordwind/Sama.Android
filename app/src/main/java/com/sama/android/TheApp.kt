@@ -9,10 +9,11 @@ import com.sama.android.login.LoginActivity
 class TheApp : Application() {
 
     companion object {
-        var sessionToken: String? = null
+        var context: Context? = null
     }
 
     override fun onCreate() {
         super.onCreate()
+        context = applicationContext
     }
 }

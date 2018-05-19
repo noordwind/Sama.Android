@@ -45,9 +45,9 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }
     }
 
-    private lateinit var mMap: GoogleMap
+    private var mMap: GoogleMap? = null
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
-    private lateinit var locationManager: LocationManager
+    private var locationManager: LocationManager? = null
     private lateinit var presenter: MapPresenter
     private lateinit var compositeDisposable: CompositeDisposable
     private var markers = LinkedList<Marker>()
@@ -86,11 +86,10 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap = googleMap
         mMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
         mMap?.setOnMarkerClickListener(this)
-        mMap?.setMinZoomPreference(10f)
 
         if (checkLocationPermission()) {
-            mMap.isMyLocationEnabled = true;
-            mMap.getUiSettings().isMyLocationButtonEnabled = true;
+            mMap?.isMyLocationEnabled = true;
+            mMap?.getUiSettings()!!.isMyLocationButtonEnabled = true;
             listenForLocation()
         }
 
@@ -103,7 +102,7 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     fun listenForLocation() {
         // Acquire a reference to the system Location Manager
         locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0.toLong(), 0.toFloat(), this)
+        locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0.toLong(), 0.toFloat(), this)
     }
 
 
@@ -127,8 +126,8 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                 // Permission was granted.
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    mMap.isMyLocationEnabled = true;
-                    mMap.getUiSettings().isMyLocationButtonEnabled = true;
+                    mMap?.isMyLocationEnabled = true;
+                    mMap?.getUiSettings()!!.isMyLocationButtonEnabled = true;
                 }
 
             } else {
@@ -143,8 +142,8 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onLocationChanged(location: Location?) {
         mMap?.let {
             location?.let {
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f))
+                mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
+                mMap?.animateCamera(CameraUpdateFactory.zoomTo(10.0f))
             }
         }
     }
@@ -167,7 +166,7 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
                 ngo?.let {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(ngo.latitude, ngo.longitude)))
+                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(ngo.latitude, ngo.longitude)))
 
                     var previewContainer = LayoutInflater.from(baseContext).inflate(R.layout.view_ngo_preview_container, bottomSheet, false) as FrameLayout
                     var ngoPreview = NgoPreviewView(this, ngo = ngo)
@@ -182,8 +181,8 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onStop() {
         super.onStop()
-        if (locationManager != null) {
-            locationManager.removeUpdates(this)
+        locationManager?.let {
+            it.removeUpdates(this)
         }
 
         if (compositeDisposable != null && !compositeDisposable.isDisposed) {
@@ -197,11 +196,11 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }
 
         for (ngo in ngos) {
-            mMap.addMarker(MarkerOptions()
+            mMap?.addMarker(MarkerOptions()
                     .snippet(ngo.id)
                     .position(LatLng(ngo.latitude, ngo.longitude))
                     .title(ngo.name))
-            mMap.setOnMarkerClickListener(this)
+            mMap?.setOnMarkerClickListener(this)
         }
     }
 
@@ -231,7 +230,7 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
     private fun logout() {
-        TheApp.sessionToken = null
+        Session(baseContext).setSessionToken(null)
         LoginActivity.login(baseContext)
         finish()
     }

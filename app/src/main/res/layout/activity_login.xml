@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/background_blur"/>
+            app:srcCompat="@drawable/login"/>
 
         <TextView
             android:id="@+id/title"
@@ -74,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="test@gmail.com"
+                    android:text="user1@sama.network"
                     android:hint="Email"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
@@ -84,7 +84,7 @@
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="testtest"
+                    android:text="secret"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:fontFamily="sans-serif-light"
                     android:hint="Password"
