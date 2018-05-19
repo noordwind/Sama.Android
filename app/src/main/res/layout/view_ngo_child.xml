@@ -8,7 +8,15 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/funds_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_favorite_active_filled" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -23,8 +31,8 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/child"
-                app:civ_border_width="1dp"
-                app:civ_border_color="@color/vote_down_remark_color"/>
+                app:civ_border_color="@color/vote_down_remark_color"
+                app:civ_border_width="1dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -53,11 +61,14 @@
             android:orientation="vertical"
             android:padding="8dp">
 
+
             <android.support.v7.widget.AppCompatImageView
-                app:srcCompat="@drawable/ic_favorite_inactive"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/funds_notactive"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_favorite_inactive" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -72,7 +83,7 @@
                     android:fontFamily="sans-serif-condensed"
                     android:text="200"
                     android:textColor="@color/half_black"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/neededFunds"
@@ -81,9 +92,9 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_vertical"
                     android:text="/2000$"
-                    android:textStyle="bold"
                     android:textColor="@color/vote_down_remark_color"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 

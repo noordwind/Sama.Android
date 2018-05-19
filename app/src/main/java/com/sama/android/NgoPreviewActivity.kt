@@ -61,7 +61,7 @@ class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
                     showNgo(it)
                 }, Consumer {
                     findViewById<View>(R.id.progress).visibility = View.GONE
-                    Toast.makeText(baseContext, "Could not fetch ngo", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Could not fetch NGO", Toast.LENGTH_SHORT).show()
                 })
     }
 
@@ -134,11 +134,11 @@ class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
                                 findViewById<View>(R.id.progress).visibility = View.GONE
                             }, Consumer {
                                 findViewById<View>(R.id.progress).visibility = View.GONE
-                                Toast.makeText(baseContext, "Could not fetch ngo", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(baseContext, "Could not fetch NGO", Toast.LENGTH_SHORT).show()
                             })
                 }, Consumer {
                     findViewById<View>(R.id.progress).visibility = View.GONE
-                    Toast.makeText(baseContext, "Could not make a donate", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Insufficient funds", Toast.LENGTH_SHORT).show()
                 })
     }
 

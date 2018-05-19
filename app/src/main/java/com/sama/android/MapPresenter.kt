@@ -29,7 +29,7 @@ class MapPresenter(val view: MainAcitvity) {
                             ngos.addAll(it)
                             view.showNgos(it)
                         }, Consumer {
-                            Toast.makeText(view, "Could not fetch ngos", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(view, "Could not fetch NGOs", Toast.LENGTH_SHORT).show()
                         })
 
         view.addDisposable(disposable)

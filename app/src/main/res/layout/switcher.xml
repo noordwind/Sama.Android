@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/switcher_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:clickable="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/keyline_screen_edge_left_right_distance_half"
+        android:paddingEnd="@dimen/keyline_screen_edge_left_right_distance_half"
+        android:paddingStart="@dimen/keyline_screen_edge_left_right_distance_half"
+        android:paddingTop="2dp">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mode_switcher_height"
+            android:layout_marginEnd="@dimen/keyline_screen_edge_left_right_distance_half"
+            android:layout_marginStart="@dimen/keyline_screen_edge_left_right_distance_half"
+            android:layout_weight="1"
+            android:background="@drawable/donations_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/switcher"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/mode_switcher_side_elements"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/donations_switcher"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/children"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/mode_switcher_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/switcher_item_background"
+                    android:gravity="center"
+                    android:text="CHILDREN"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix" />
+
+                <TextView
+                    android:id="@+id/donations"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/mode_switcher_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/switcher_item_background"
+                    android:gravity="center"
+                    android:text="DONATIONS"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shadow_height"
+        android:src="@drawable/shadow" />
+</merge>

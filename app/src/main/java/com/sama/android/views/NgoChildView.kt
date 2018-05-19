@@ -10,11 +10,15 @@ import kotlinx.android.synthetic.main.view_ngo_child.view.*
 
 class NgoChildView(context: Context?, val child: NgoChild) : LinearLayout(context) {
 
+    var childFunds: Float = 0f
+    var newChildNeededFunds: Float = 0f
+
     init {
         View.inflate(getContext(), R.layout.view_ngo_child, this)
         fullName.text = child.fullName
-        funds.setValue(child.funds)
-        neededFunds.text = "/" + String.format("%.0f", child.neededFunds)+ "$"
+        setFunds(child.funds)
+        setNeededFunds(child.neededFunds)
+        invalidateFunds()
 
         var url = "https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-9/13707543_1113779778680046_7388140466043605584_n.jpg?_nc_cat=0&oh=e040642b3449396bfa4f92464bd7f0d0&oe=5B88FBE7"
         Picasso.get().load(url).into(profileImage)
@@ -22,10 +26,25 @@ class NgoChildView(context: Context?, val child: NgoChild) : LinearLayout(contex
     }
 
     fun setFunds(newFunds: Float) {
+        childFunds = newFunds
         funds.setValue(newFunds)
     }
 
     fun setNeededFunds(newNeededFunds: Float) {
-        neededFunds.text = "/" + String.format("%.0f", newNeededFunds)+ "$"
+        newChildNeededFunds = newNeededFunds
+        neededFunds.text = "/" + String.format("%.0f", newNeededFunds) + "$"
     }
+
+    fun invalidateFunds() {
+        if (childFunds >= newChildNeededFunds) {
+            funds_active.visibility = View.VISIBLE
+            funds_notactive.visibility = View.GONE
+            funds.setTextColor(resources.getColor(R.color.vote_down_remark_color))
+        } else {
+            funds_active.visibility = View.GONE
+            funds_notactive.visibility = View.VISIBLE
+            funds.setTextColor(resources.getColor(R.color.half_black))
+        }
+    }
+
 }

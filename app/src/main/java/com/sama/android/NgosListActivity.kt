@@ -59,7 +59,7 @@ class NgosListActivity : AppCompatActivity() {
                         }, (number++ * 50).toLong())
                     }
                 }, Consumer {
-                    Toast.makeText(baseContext, "Could not fetch ngos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Could not fetch NGOs", Toast.LENGTH_SHORT).show()
                 })
     }
 
@@ -79,7 +79,7 @@ class NgosListActivity : AppCompatActivity() {
                         }
                     }
                 }, Consumer {
-                    Toast.makeText(baseContext, "Could not fetch ngos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Could not fetch NGOs", Toast.LENGTH_SHORT).show()
                 })
     }
 

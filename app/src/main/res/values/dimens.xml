@@ -19,4 +19,200 @@
     <dimen name="profile_image_width">120dp</dimen>
     <dimen name="profile_image_final_width">32dp</dimen>
     <dimen name="design_navigation_padding_bottom" tools:override="true">0dp</dimen>
+
+        <!-- scale independent -->
+        <!-- font size -->
+        <dimen name="carjump_text_size_large">24sp</dimen>
+        <dimen name="carjump_text_size_medium">18sp</dimen>
+        <dimen name="carjump_text_size_mid_size">16sp</dimen>
+        <dimen name="carjump_text_size_small">14sp</dimen>
+        <dimen name="carjump_text_size_small_tiny">13sp</dimen>
+        <dimen name="carjump_text_size_tiny">12sp</dimen>
+        <dimen name="carjump_text_size_micro">10sp</dimen>
+
+        <dimen name="time_size">25sp</dimen>
+        <!-- line spacing -->
+        <dimen name="carjump_text_linespacing_large">4sp</dimen>
+        <dimen name="carjump_text_linespacing_small">2sp</dimen>
+
+        <!-- density independent -->
+        <!-- material grid -->
+        <dimen name="baseline_half">4dp</dimen>
+        <dimen name="baseline">8dp</dimen>
+        <dimen name="baseline_double">16dp</dimen>
+        <dimen name="baseline_triple">24dp</dimen>
+        <dimen name="baseline_quadruple">32dp</dimen>
+
+        <dimen name="minus_baseline_double">-16dp</dimen>
+
+        <!-- defining application's UI -->
+        <dimen name="keyline_screen_edge_left_right_distance">16dp</dimen>
+        <dimen name="keyline_horizontal_padding_double">32dp</dimen>
+        <dimen name="keyline_horizontal_padding_3x">48dp</dimen>
+        <dimen name="keyline_screen_edge_top_bottom_distance">16dp</dimen>
+        <dimen name="keyline_screen_edge_left_right_distance_half">8dp</dimen>
+        <dimen name="keyline_screen_edge_top_bottom_distance_half">8dp</dimen>
+        <dimen name="keyline_dialog_content_padding">24dp</dimen>
+        <dimen name="keyline_dialog_title_body_padding">20dp</dimen>
+        <dimen name="keyline_dialog_bottom_padding">8dp</dimen>
+        <dimen name="keyline_dialog_button_height">36dp</dimen>
+        <dimen name="interelement_padding">8dp</dimen>
+        <dimen name="interelement_padding_doubled">16dp</dimen>
+        <dimen name="drawable_left_padding">4dp</dimen>
+        <dimen name="keyline_single_row_height">48dp</dimen>
+        <dimen name="keyline_distance_around_content_alert">24dp</dimen>
+        <dimen name="dialog_padding_title_body">12dp</dimen>
+        <dimen name="tool_bar_top_padding">0dp</dimen>
+        <dimen name="tool_bar_elevation">0dp</dimen>
+        <dimen name="content_frame_layout_margin">0dp</dimen>
+        <dimen name="login_divider_gap">15dp</dimen>
+        <dimen name="login_divider_height">40dp</dimen>
+        <dimen name="stationary_booking_cell_height">60dp</dimen>
+        <dimen name="contact_cell_padding">16dp</dimen>
+        <dimen name="booking_icon_margin">16dp</dimen>
+        <dimen name="onboarding_icon_space">40dp</dimen>
+        <dimen name="carjump_button_height">40dp</dimen>
+        <dimen name="carjump_small_button_height">32dp</dimen>
+        <dimen name="carjump_corner_radius">1dp</dimen>
+        <dimen name="corner_radius_double">2dp</dimen>
+        <dimen name="button_corner_radius">1dip</dimen>
+        <dimen name="map_menu_element">34dp</dimen>
+        <!-- image dimens -->
+        <dimen name="keyline_min_touch_target_size">48dp</dimen>
+        <dimen name="keyline_toolbar_icon_size">24dp</dimen>
+        <dimen name="icon_size">50dp</dimen>
+        <dimen name="login_image_height">120dp</dimen>
+        <dimen name="rating_image_height">24dp</dimen>
+        <dimen name="account_image_size">100dp</dimen>
+        <dimen name="drawer_account_image_size_large">60dp</dimen>
+        <dimen name="drawer_account_image_size_medium">45dp</dimen>
+        <dimen name="drawer_account_image_size_small">30dp</dimen>
+        <!-- same physical size on every screen (nearly) -->
+        <!-- canvas drawing -->
+        <dimen name="radius">2pt</dimen>
+        <dimen name="tutorial_step_indicator_rectangle_height">2pt</dimen>
+        <dimen name="tutorial_step_indicator_rectangle_width">10pt</dimen>
+        <dimen name="booking_is_soon_banner_height">40dp</dimen>
+        <dimen name="booking_is_soon_banner_text_size">14sp</dimen>
+
+        <dimen name="item_booking_top_bottom_padding">24dp</dimen>
+
+        <dimen name="mode_switcher_height">25dp</dimen>
+        <dimen name="mode_switcher_side_elements">22dp</dimen>
+
+        <dimen name="minimum_button_size">120dp</dimen>
+        <dimen name="search_view_sub">80dp</dimen>
+
+        <dimen name="time_range_panel_top_bottom_padding">4dp</dimen>
+        <dimen name="time_range_panel_drawable_padding">8dp</dimen>
+        <dimen name="time_slider_left_right_padding">16dp</dimen>
+        <dimen name="time_slider_indicator_width">25dp</dimen>
+        <dimen name="time_slider_indicator_height">5dp</dimen>
+
+        <dimen name="calendar_view_height">200dp</dimen>
+        <dimen name="calendar_view_width">255dp</dimen>
+        <dimen name="calendar_view_margin_bottom">-10dp</dimen>
+        <dimen name="calendar_view_margin_top">-10dp</dimen>
+
+        <dimen name="keyline_fab_elevation_resting_state">6dp</dimen>
+        <dimen name="fab_filter_indicator_margin">25dp</dimen>
+        <dimen name="indicator_green_circle_radius">10dp</dimen>
+        <dimen name="google_map_frame_padding_bottom">50dp</dimen>
+
+        <dimen name="keyline_persistent_footer_button_height">48dp</dimen>
+        <dimen name="civ_border_width">2dp</dimen>
+
+        <dimen name="account_mail_distance">30dp</dimen>
+        <dimen name="account_mail_overall_top">60dp</dimen>
+        <dimen name="password_eye_padding">6dp</dimen>
+        <dimen name="elevation_progressbar_wrapper">6dp</dimen>
+        <dimen name="infobanner_interaction_wrapper_width">65dp</dimen>
+        <dimen name="account_reason_items_padding_top">30dp</dimen>
+
+        <dimen name="interior_exterior_dimens">10dp</dimen>
+        <dimen name="interior_exterior_middle_dot_margin">12dp</dimen>
+        <dimen name="interior_exterior_edge_dot_margin">25dp</dimen>
+
+        <dimen name="row_support_action_item_left_margin">40dp</dimen>
+        <dimen name="row_min_height">56dp</dimen>
+
+        <dimen name="alert_text_padding_top_bottom">24dp</dimen>
+        <dimen name="alert_dialog_min_title_height">37dp</dimen>
+        <dimen name="alert_dialog_min_selector_height">56dp</dimen>
+        <dimen name="row_title_min_height">37dp</dimen>
+        <dimen name="icon_button_padding_left_right">25dp</dimen>
+        <dimen name="icon_button_margin">5dp</dimen>
+        <dimen name="button_ghost_stroke_width">2dp</dimen>
+        <dimen name="button_distance_between_button">14dp</dimen>
+        <dimen name="button_distance_half_between_button">7dp</dimen>
+        <dimen name="fab_dim">56dp</dimen>
+        <dimen name="fab_padding">16dp</dimen>
+        <dimen name="fab_underlying_text_margin">24dp</dimen>
+        <dimen name="fab_underlying_text_padding">3dp</dimen>
+        <dimen name="fab_extra_right_padding">9dp</dimen>
+        <dimen name="fab_container_top_padding">12dp</dimen>
+        <dimen name="shadow_height">4dp</dimen>
+        <dimen name="shadow_height_negative">-4dp</dimen>
+        <dimen name="provider_login_overall_top">55dp</dimen>
+        <dimen name="provider_login_logo_bottom">20dp</dimen>
+        <dimen name="provider_login_logo_border">3dp</dimen>
+        <dimen name="provider_contact_button_width">140dp</dimen>
+        <dimen name="provider_list_login_logo_border">3dp</dimen>
+        <dimen name="btn_to_map_padding">42dp</dimen>
+        <dimen name="pr_pin_wrapper_top">46dp</dimen>
+        <dimen name="country_item_padding">24dp</dimen>
+        <dimen name="secure_icon_dim">24dp</dimen>
+        <dimen name="pr_status_margin_top_bottom">32dp</dimen>
+        <dimen name="video_verification_checkbox_min_height">56dp</dimen>
+        <dimen name="flow_layout_empty_row_height">20dp</dimen>
+        <dimen name="app_bar_action_icon_right_padding">12dp</dimen>
+        <dimen name="or_divider_height">1dp</dimen>
+        <dimen name="app_bar_action_icon_padding">4dp</dimen>
+        <dimen name="account_continue_pr_button_margin_top">40dp</dimen>
+        <dimen name="account_mail_margin_top">36dp</dimen>
+        <dimen name="pr_mail_validation_resend_wrapper_height">60dp</dimen>
+        <dimen name="coach_mark_dialog_horizontal_padding">40dp</dimen>
+        <dimen name="coach_mark_dialog_providers_top_margin">36dp</dimen>
+        <dimen name="coach_mark_dialog_providers_title_top_margin">24dp</dimen>
+        <dimen name="pr_step_top_padding">64dp</dimen>
+        <dimen name="pr_round_icon_bottom_padding">31dp</dimen>
+        <dimen name="cluster_indicator_min_width_height">18dp</dimen>
+        <dimen name="cluster_indicator_step_distance">6dp</dimen>
+        <dimen name="cluster_indicator_margin">14dp</dimen>
+
+        <dimen name="tutorial_car_icon_size">50dp</dimen>
+        <dimen name="tutorial_car_icon_size_half">25dp</dimen>
+        <dimen name="ballconnect_top_offset">-5dp</dimen>
+        <dimen name="tutorial_circle_pager_indicator_size">5dp</dimen>
+        <dimen name="tutorial_horizontal_margin">30dp</dimen>
+        <dimen name="pr_text_block_max_width">260dp</dimen>
+        <dimen name="station_details_model_title_max_width">180dp</dimen>
+        <dimen name="permission_dialog_width">300dp</dimen>
+        <dimen name="pulsing_location">50dp</dimen>
+        <dimen name="search_view_top_font_padding">2sp</dimen>
+        <dimen name="currency_detail_size">16dp</dimen>
+        <dimen name="color_availablitiy_indicator_radius">5dp</dimen>
+        <dimen name="color_availablitiy_indicator_padding">2dp</dimen>
+        <dimen name="color_availablitiy_indicator_stroke">1dp</dimen>
+        <dimen name="status_bar_height">24dp</dimen>
+        <dimen name="color_box_top_bottom">4dp</dimen>
+        <dimen name="color_box_left_right">6dp</dimen>
+        <dimen name="color_box_stroke">2dp</dimen>
+
+        <dimen name="provider_normal_pin_height">42dp</dimen>
+        <dimen name="provider_normal_pin_width">45dp</dimen>
+        <dimen name="provider_small_pin_height">28dp</dimen>
+        <dimen name="provider_small_pin_width">29dp</dimen>
+
+        <dimen name="fab_location_elevation">0px</dimen>
+        <dimen name="fab_action_elevation">0px</dimen>
+        <dimen name="spinner_margin_start_end">12dp</dimen>
+        <dimen name="map_fab_horizontal_margin">@dimen/baseline_double</dimen>
+        <dimen name="map_fab_bottom_margin">22dp</dimen>
+
+        <dimen name="onboarding_pin_height">39dp</dimen>
+        <dimen name="onboarding_pin_width">41dp</dimen>
+        <dimen name="onboarding_margin">32dp</dimen>
+        <dimen name="onboarding_margin_top">75dp</dimen>
+        <dimen name="onboarding_title_font_size">40sp</dimen>
 </resources>

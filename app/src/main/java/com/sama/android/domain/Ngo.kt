@@ -12,5 +12,6 @@ data class Ngo (
         val funds: Float,
         val donatedFunds: Float,
         val approved: Boolean,
-        val children: List<NgoChild>
+        val children: List<NgoChild>,
+        val donations: List<NgoDonation>
 ) : Serializable

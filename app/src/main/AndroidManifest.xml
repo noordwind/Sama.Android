@@ -42,13 +42,13 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".MainAcitvity"
-            android:label="Ngos map">
+            android:label="NGOs map">
         </activity>
 
         <activity
             android:screenOrientation="portrait"
             android:name=".NgosListActivity"
-            android:label="Ngos list">
+            android:label="NGOs list">
         </activity>
 
         <activity
