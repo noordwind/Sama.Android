@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="blue_light_transparent">#880277BD</color>
+    <color name="red_light">#0288D1</color>
+    <color name="red_dark_1">#0277BD</color>
+    <color name="red_dark_2">#0277BD</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="half_black">#808080</color>
+    <color name="light_grey">#CCdddddd</color>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="black">#000000</color>
+    <color name="menu_delimiter">#d0d0d0</color>
+
+    // GREY COLORS
+    <color name="grey">#ddd</color>
+    <color name="grey_semi_transparent">#22DDDDDD</color>
+    <color name="bg_gray">#ebebeb</color>
+    <color name="bg_dark_gray">#575757</color>
+    <color name="bg_mid_gray">#bebebe</color>
+    <color name="bg_light_gray">#f2f2f2</color>
+
+    <color name="black_light_transparent">#88000000</color>
+
+    <color name="main_menu_background">#2E2E2E</color>
+    <color name="unresolved_remark_color">#D32F2F</color>
+    <color name="resolved_remark_color">@color/red_dark_2</color>
+
+    <color name="resolved_remark_background_color">#66BB6A</color>
+    <color name="new_remark_background_color">#0277BD
+    </color>
+    <color name="processing_remark_background_color">#f9c42f</color>
+    <color name="renewed_remark_background_color">#75d7ff</color>
+
+    <color name="vote_up_remark_color">#66BB6A</color>
+    <color name="vote_down_remark_color">#D32F2F</color>
+
+    // FONT COLOR
+    <color name="font_dark">#191919</color>
+    <color name="font_dark_secondary">#5f5f5f</color>
+    <color name="font_dark_hint">#888</color>
+    <color name="font_light">#FFF</color>
+    <color name="background_light">@color/background_material_light</color>
+    <color name="defect_category_color">#37474F</color>
+    <color name="issue_category_color">#DD2C00</color>
+    <color name="suggestion_category_color">#FDD835</color>
+    <color name="praise_category_color">#66BB6A</color>
+    <color name="remark_state_new_color">#4368F8</color>
+    <color name="remark_state_processing_color">#E9B72B</color>
+    <color name="remark_state_renewed_color">#75D7FF</color>
+    <color name="remark_state_resolved_color">#66BB6A</color>
+</resources>
