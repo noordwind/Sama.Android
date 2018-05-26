@@ -18,16 +18,17 @@ import com.sama.android.views.DonateDialog
 import com.sama.android.views.NgoPreviewView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_ngo_preview_single.*
 
 class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
     companion object {
-        fun show(context: Context, ngo: Ngo) {
+        fun show(context: AppCompatActivity, ngo: Ngo) {
             val intent = Intent(context, NgosPreviewActivity::class.java)
             intent.putExtra("NGO", ngo)
-            context.startActivity(intent)
+            context.startActivityForResult(intent, 1000)
             SamaAnimUtils.overrideEnterTransitionWithHorizontalSlide(context as Activity?)
         }
     }
@@ -49,6 +50,10 @@ class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
             it.setHomeButtonEnabled(true)
         }
 
+        var ngo = intent.getSerializableExtra("NGO") as Ngo
+
+        setTitle(ngo.name)
+
         fetchNgo()
     }
 
@@ -69,11 +74,16 @@ class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
                 })
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     fun showNgo(ngo: Ngo) {
         ngoPreviewView = NgoPreviewView(this, ngo = ngo, headerClickable = false)
         title = ngo.name
         root.removeAllViews()
         root.addView(ngoPreviewView)
+        ngoPreviewView!!.showChildDonationTooltip()
         root.visibility = View.VISIBLE
     }
 
@@ -96,8 +106,14 @@ class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
         return super.onOptionsItemSelected(item)
     }
 
+    fun refetchNgos() {
+        setResult(Activity.RESULT_OK)
+    }
+
+
     override fun onStop() {
         super.onStop()
+
         disposable?.let {
             if (!it.isDisposed) {
                 it.dispose()
@@ -124,7 +140,7 @@ class NgosPreviewActivity : AppCompatActivity(), DonateDialog.OnAccept {
         donateDisposable = api.donate(ngo.id, DonateRequest(donation))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(Consumer {
+                .subscribe(Action {
 
                     disposable = api.ngo(ngo.id)
                             .subscribeOn(Schedulers.io())

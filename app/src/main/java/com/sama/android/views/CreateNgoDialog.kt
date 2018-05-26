@@ -11,54 +11,54 @@ import android.widget.EditText
 import android.widget.TextView
 import com.ramotion.fluidslider.FluidSlider
 import com.sama.android.R
-import kotlinx.android.synthetic.main.framgment_donate_dialog.*
 
-class DonateDialog : DialogFragment() {
+class CreateNgoDialog : DialogFragment() {
 
     companion object {
-        fun newInstance(): DonateDialog = DonateDialog()
+        fun newInstance(): CreateNgoDialog = CreateNgoDialog()
     }
 
     interface OnAccept {
-        fun onAccept(donation : Int)
+        fun onAccept(name: String, description: String, fundsPerChild: Int)
     }
 
     var onAccept: OnAccept? = null
-    var dialogTitle: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog)
+        setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(R.layout.framgment_donate_dialog, container, false)
+        val rootView = inflater!!.inflate(R.layout.framgment_ngo_dialog, container, false)
 
-        val max = 1000
-        val min = 10
+        val max = 3000
+        val min = 0
         val total = max - min
 
-        var donationLabel = rootView.findViewById<EditText>(R.id.donation)
+        var fundsLabel = rootView.findViewById<EditText>(R.id.funds)
         var slider = rootView.findViewById<FluidSlider>(R.id.slider)
+
         slider.positionListener = { pos ->
             var donationAmount = min + (total * pos).toInt()
             slider.bubbleText = "${donationAmount}"
-            donationLabel.setText("${donationAmount}", TextView.BufferType.NORMAL)
+            fundsLabel.setText("${donationAmount}", TextView.BufferType.NORMAL)
         }
-        slider.position = 0.3f
-        slider.startText ="$min"
+        slider.startText = "$min"
         slider.endText = "$max"
 
-        rootView.findViewById<View>(R.id.donate).setOnClickListener({
+        rootView.findViewById<View>(R.id.accept).setOnClickListener({
             onAccept?.let {
-                it.onAccept(donationLabel.text.toString().toInt())
+                var fullName = rootView.findViewById<TextView>(R.id.fullName).text.toString()
+                var funds = rootView.findViewById<TextView>(R.id.funds).text.toString().toInt()
+                var description = rootView.findViewById<TextView>(R.id.descriptionLabel).text.toString()
+
+                onAccept?.let {
+                    it.onAccept(name = fullName, description = description, fundsPerChild = funds)
+                }
             }
             dismiss()
         })
-
-        dialogTitle?.let {
-            (rootView.findViewById<TextView>(R.id.titleOfDialog) as TextView).text = dialogTitle
-        }
 
         return rootView
     }

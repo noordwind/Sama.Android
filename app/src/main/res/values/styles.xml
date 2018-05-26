@@ -14,4 +14,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="TooltipMainStyle" parent="ToolTipLayoutDefaultStyle">
+        <item name="ttlm_backgroundColor">@color/vote_down_remark_color</item>
+        <item name="android:textAppearance">@style/TooltipTextAppearance</item>
+    </style>
+
+    <!-- Popup Menu Text Color styles -->
+    <style name="TooltipTextAppearance">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_light</item>
+    </style>
 </resources>

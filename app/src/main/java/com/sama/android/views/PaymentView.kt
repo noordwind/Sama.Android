@@ -17,4 +17,7 @@ class PaymentView(context: Context?, payment: Payment) : LinearLayout(context) {
         donationLabel.text = Html.fromHtml(" <b>${payment.createdAt.split("T")[0]}</b>")
     }
 
+    fun hideDelimiter() {
+        delimiter.visibility = View.GONE
+    }
 }

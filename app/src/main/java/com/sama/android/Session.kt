@@ -17,4 +17,19 @@ class Session(context: Context) {
         sharedPreferences.edit().putString("SESSION_TOKEN", token).commit()
         return this
     }
+
+    val isAdmin: Boolean
+        get() = sharedPreferences.getBoolean("IS_ADMIN", false)
+
+    val isNgo: Boolean
+        get() = sharedPreferences.getBoolean("IS_NGO", false)
+
+    fun setAdmin(isAdmin: Boolean): Session {
+        sharedPreferences.edit().putBoolean("IS_ADMIN", isAdmin).commit()
+        return this
+    }
+    fun setNgo(isNgo: Boolean): Session {
+        sharedPreferences.edit().putBoolean("IS_NGO", isNgo).commit()
+        return this
+    }
 }

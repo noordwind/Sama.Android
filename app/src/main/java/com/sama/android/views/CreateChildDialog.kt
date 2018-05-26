@@ -11,54 +11,54 @@ import android.widget.EditText
 import android.widget.TextView
 import com.ramotion.fluidslider.FluidSlider
 import com.sama.android.R
-import kotlinx.android.synthetic.main.framgment_donate_dialog.*
 
-class DonateDialog : DialogFragment() {
+class CreateChildDialog : DialogFragment() {
 
     companion object {
-        fun newInstance(): DonateDialog = DonateDialog()
+        fun newInstance(): CreateChildDialog = CreateChildDialog()
     }
 
     interface OnAccept {
-        fun onAccept(donation : Int)
+        fun onAccept(fullName: String, neededFunds: Int)
     }
 
     var onAccept: OnAccept? = null
-    var dialogTitle: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog)
+        setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(R.layout.framgment_donate_dialog, container, false)
+        val rootView = inflater!!.inflate(R.layout.framgment_add_child_dialog, container, false)
 
         val max = 1000
         val min = 10
         val total = max - min
 
-        var donationLabel = rootView.findViewById<EditText>(R.id.donation)
+        var fundsLabel = rootView.findViewById<EditText>(R.id.funds)
         var slider = rootView.findViewById<FluidSlider>(R.id.slider)
+
         slider.positionListener = { pos ->
             var donationAmount = min + (total * pos).toInt()
             slider.bubbleText = "${donationAmount}"
-            donationLabel.setText("${donationAmount}", TextView.BufferType.NORMAL)
+            fundsLabel.setText("${donationAmount}", TextView.BufferType.NORMAL)
         }
-        slider.position = 0.3f
-        slider.startText ="$min"
+        slider.position = 0f
+        slider.startText = "$min"
         slider.endText = "$max"
 
-        rootView.findViewById<View>(R.id.donate).setOnClickListener({
+        rootView.findViewById<View>(R.id.accept).setOnClickListener({
             onAccept?.let {
-                it.onAccept(donationLabel.text.toString().toInt())
+                var fullName = rootView.findViewById<TextView>(R.id.fullName).text.toString()
+                var funds = rootView.findViewById<TextView>(R.id.funds).text.toString().toInt()
+
+                onAccept?.let {
+                    it.onAccept(fullName = fullName, neededFunds = funds)
+                }
             }
             dismiss()
         })
-
-        dialogTitle?.let {
-            (rootView.findViewById<TextView>(R.id.titleOfDialog) as TextView).text = dialogTitle
-        }
 
         return rootView
     }

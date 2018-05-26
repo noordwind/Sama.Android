@@ -5,6 +5,7 @@ package com.sama.android.domain
  */
 
 data class Profile(
+        val role: String,
         val payments: List<Payment>,
         val donations: List<NgoDonation>
 )

@@ -12,7 +12,7 @@ class NgoDonationView(context: Context?, donation: NgoDonation, profileDonation 
 
     init {
         View.inflate(getContext(), R.layout.view_ngo_donation, this)
-        donationAmount.text = "+${donation.value.toInt()}$"
+        donationAmount.text = "+${donation.value.toInt()}₹"
         if (profileDonation) {
             donationLabel.text = Html.fromHtml("donated for <b>${donation.ngoName}</b>")
         } else {

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
-            android:text="+200$"
+            android:text="+200₹"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center_vertical"
             android:textSize="20sp" />
@@ -33,6 +33,7 @@
     </FrameLayout>
 
     <View
+        android:id="@+id/delimiter"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/grey" />

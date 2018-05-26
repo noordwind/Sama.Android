@@ -9,13 +9,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/titleOfDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
         android:background="@color/colorPrimary"
         android:padding="8dp"
-        android:text="Donation"
+        android:text="Add new NGO"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -28,22 +27,39 @@
         android:orientation="vertical"
         android:padding="8dp">
 
+        <EditText
+            android:id="@+id/fullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="NGO name"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/descriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:textSize="24sp" />
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/donation"
+                android:id="@+id/funds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:gravity="center"
                 android:minWidth="100dp"
-                android:text="1000"
+                android:hint="Funds per child"
                 android:textSize="24sp" />
 
             <TextView
@@ -56,7 +72,7 @@
 
 
         <com.ramotion.fluidslider.FluidSlider
-            android:layout_marginTop="-20dp"
+            android:layout_marginTop="-30dp"
             android:id="@+id/slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,7 +82,7 @@
 
 
         <TextView
-            android:id="@+id/donate"
+            android:id="@+id/accept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"

@@ -7,17 +7,24 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import com.sama.android.domain.Ngo
+import com.sama.android.network.Api
+import com.sama.android.network.DonateRequest
+import com.sama.android.network.MakePaymentRequest
 import com.sama.android.network.NetworkModule
+import com.sama.android.views.DonateDialog
 import com.sama.android.views.NgoDonationView
 import com.sama.android.views.PaymentView
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_profile.*
 
-class ProfileActivity : AppCompatActivity(), NgoPreviewTabsSwitch.OnSwitched {
+class ProfileActivity : AppCompatActivity(), NgoPreviewTabsSwitch.OnSwitched, DonateDialog.OnAccept {
+
 
     companion object {
         fun show(context: Context) {
@@ -27,10 +34,14 @@ class ProfileActivity : AppCompatActivity(), NgoPreviewTabsSwitch.OnSwitched {
         }
     }
 
+    private lateinit var api: Api
     var disposable: Disposable? = null
+    var donateDisposable: Disposable? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        api = NetworkModule().api(baseContext)
         setContentView(R.layout.activity_profile)
         supportActionBar?.let {
             it.setHomeButtonEnabled(true)
@@ -47,10 +58,21 @@ class ProfileActivity : AppCompatActivity(), NgoPreviewTabsSwitch.OnSwitched {
         tabsSwitch.invalidate()
 
         options.addView(tabsSwitch, 0)
+
+        makePaymentButton.setOnClickListener(View.OnClickListener {
+            var donateDialog = DonateDialog()
+            donateDialog.onAccept = ProfileActivity@ this
+            donateDialog.dialogTitle = "Make payment"
+            donateDialog.show(supportFragmentManager, "Donate")
+        })
     }
 
     override fun onStart() {
         super.onStart()
+        fetchProfile()
+    }
+
+    fun fetchProfile() {
         disposable = NetworkModule().api(this)
                 .profile()
                 .subscribeOn(Schedulers.io())
@@ -64,10 +86,15 @@ class ProfileActivity : AppCompatActivity(), NgoPreviewTabsSwitch.OnSwitched {
 
                     donationsAmount.text = it.donations.size.toString()
 
-                    payments.removeAllViews()
+                    payments.removeViews(0, payments.childCount - 1)
 
                     for (payment in it.payments.reversed()) {
-                        payments.addView(PaymentView(baseContext, payment), payments.childCount)
+                        payments.addView(PaymentView(baseContext, payment), payments.childCount - 1)
+                    }
+
+                    if (!it.payments.isEmpty()) {
+                        var view = payments.getChildAt(payments.childCount - 2) as PaymentView
+                        view.hideDelimiter()
                     }
 
                     paymentsAmount.text = it.payments.size.toString()
@@ -98,5 +125,23 @@ class ProfileActivity : AppCompatActivity(), NgoPreviewTabsSwitch.OnSwitched {
                 it.dispose()
             }
         }
+
+        donateDisposable?.let {
+            if (!it.isDisposed) {
+                it.dispose()
+            }
+        }
+    }
+
+    override fun onAccept(donation: Int) {
+        donateDisposable = api.makePaymet(MakePaymentRequest(donation))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(Action {
+                    fetchProfile()
+                }, Consumer {
+                    it.printStackTrace()
+                    Toast.makeText(baseContext, "Could not send a donation", Toast.LENGTH_SHORT).show()
+                })
     }
 }

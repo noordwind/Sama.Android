@@ -18,6 +18,7 @@ import com.sama.android.network.NetworkModule
 import com.sama.android.network.SignUpRequest
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.view_login_progress.*
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var api : Api
+    private lateinit var api: Api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Session(this).isLoggedIn) {
@@ -63,7 +64,17 @@ class LoginActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(Consumer {
                     Session(baseContext).setSessionToken(it.accessToken)
-                    onLoggedIn()
+                    api.profile()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {
+                                if (it.role.equals("admin", true)) {
+                                    Session(baseContext).setAdmin(true)
+                                } else if (it.role.equals("ngo", true)) {
+                                    Session(baseContext).setNgo(true)
+                                }
+                                onLoggedIn()
+                            }
                 }, Consumer {
                     onError()
                 })
@@ -71,18 +82,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun signUp() {
-        progressView.visibility = View.VISIBLE
-        var signupRequest = SignUpRequest(email = emailInput.text.toString(), password = passwordInput.text.toString())
-        api.signUp(signupRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(Consumer {
-                    onSignUp()
-                }, Consumer {
-                    progressView.visibility = View.GONE
-                    Toast.makeText(baseContext, "Could not sign up", Toast.LENGTH_SHORT).show()
-                })
-
+        SignupActivity.signup(this)
     }
 
     fun onLoggedIn() {

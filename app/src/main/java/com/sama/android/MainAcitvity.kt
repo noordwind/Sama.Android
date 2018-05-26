@@ -23,16 +23,26 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.flipboard.bottomsheet.BottomSheetLayout
 import com.google.android.gms.maps.model.Marker
 import com.sama.android.domain.Ngo
 import com.sama.android.login.LoginActivity
+import com.sama.android.network.CreateNgoRequest
+import com.sama.android.network.NetworkModule
+import com.sama.android.views.CreateNgoDialog
 import com.sama.android.views.NgoPreviewView
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Action
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LocationListener {
@@ -86,6 +96,58 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap = googleMap
         mMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
         mMap?.setOnMarkerClickListener(this)
+        mMap?.setOnMapLongClickListener {
+            var latitude = it.latitude
+            var longitude = it.longitude
+            var session = Session(MainAcitvity@ this)
+            if (session.isAdmin || session.isNgo) {
+                var dialog = CreateNgoDialog.newInstance()
+                dialog.show(supportFragmentManager, "TAG")
+
+                var mainActivity = this
+                dialog.onAccept = object : CreateNgoDialog.OnAccept {
+                    override fun onAccept(name: String, description: String, fundsPerChild: Int) {
+                        NetworkModule().api(baseContext)
+                                .createNgo(CreateNgoRequest(
+                                        name = name,
+                                        description = description,
+                                        fundsPerChild = fundsPerChild,
+                                        location = com.sama.android.network.Location(latitude.toFloat(), longitude.toFloat())
+                                ))
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(Action {
+                                    NetworkModule().api(baseContext).ngos()
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(Consumer {
+                                                var newNgo = it.find { it.name.equals(name) }
+                                                newNgo?.let {
+                                                    mMap?.addMarker(MarkerOptions()
+                                                            .snippet(newNgo.id)
+                                                            .position(LatLng(newNgo.location.latitude, newNgo.location.longitude))
+                                                            .title(newNgo.name))
+                                                    mMap?.setOnMarkerClickListener(mainActivity)
+
+                                                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(newNgo.location.latitude, newNgo.location.longitude)))
+
+                                                    var previewContainer = LayoutInflater.from(mainActivity).inflate(R.layout.view_ngo_preview_container, bottomSheet, false) as FrameLayout
+                                                    var ngoPreview = NgoPreviewView(mainActivity, ngo = newNgo)
+                                                    previewContainer.addView(ngoPreview)
+
+                                                    bottomSheet.showWithSheetView(previewContainer)
+                                                }
+                                            }, Consumer {
+                                                Toast.makeText(baseContext, "Could not create new NGO", Toast.LENGTH_SHORT).show()
+                                            })
+                                }, Consumer {
+                                    Toast.makeText(baseContext, "Could not create NGO", Toast.LENGTH_SHORT).show()
+                                })
+                    }
+                }
+
+            }
+        }
 
         if (checkLocationPermission()) {
             mMap?.isMyLocationEnabled = true;
@@ -166,7 +228,7 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
                 ngo?.let {
-                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(ngo.latitude, ngo.longitude)))
+                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(ngo.location.latitude, ngo.location.longitude)))
 
                     var previewContainer = LayoutInflater.from(baseContext).inflate(R.layout.view_ngo_preview_container, bottomSheet, false) as FrameLayout
                     var ngoPreview = NgoPreviewView(this, ngo = ngo)
@@ -198,7 +260,7 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         for (ngo in ngos) {
             mMap?.addMarker(MarkerOptions()
                     .snippet(ngo.id)
-                    .position(LatLng(ngo.latitude, ngo.longitude))
+                    .position(LatLng(ngo.location.latitude, ngo.location.longitude))
                     .title(ngo.name))
             mMap?.setOnMarkerClickListener(this)
         }
@@ -231,6 +293,8 @@ class MainAcitvity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun logout() {
         Session(baseContext).setSessionToken(null)
+        Session(baseContext).setAdmin(false)
+        Session(baseContext).setNgo(false)
         LoginActivity.login(baseContext)
         finish()
     }
